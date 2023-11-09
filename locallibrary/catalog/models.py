@@ -17,6 +17,7 @@ class Genre(models.Model):
 from django.urls import reverse #Used to generate URLs by reversing the URL patterns
 
 class Book(models.Model):
+
     """
     Model representing a book (but not a specific copy of a book).
     """
@@ -42,6 +43,14 @@ class Book(models.Model):
         Returns the url to access a particular book instance.
         """
         return reverse('book-detail', args=[str(self.id)])
+
+    def display_genre(self):
+        """
+        Creates a string for the Genre. This is required to display genre in Admin.
+        """
+        return ', '.join([genre.name for genre in self.genre.all()[:3]])
+
+    display_genre.short_description = 'Genre'
 
 import uuid # Required for unique book instances
 
@@ -99,12 +108,11 @@ class Author(models.Model):
 
 
 class AuthorAdmin(admin.ModelAdmin):
-    pass
-
+    list_display = ('last_name', 'first_name', 'date_of_birth', 'date_of_death')
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'author', 'display_genre')
 
 # Register the Admin classes for BookInstance using the decorator
 
