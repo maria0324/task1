@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib import admin
 # Create your models here.
 class Genre(models.Model):
     """
@@ -95,3 +95,19 @@ class Author(models.Model):
         String for representing the Model object.
         """
         return '%s, %s' % (self.last_name, self.first_name)
+
+
+
+class AuthorAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    pass
+
+# Register the Admin classes for BookInstance using the decorator
+
+@admin.register(BookInstance)
+class BookInstanceAdmin(admin.ModelAdmin):
+    pass
