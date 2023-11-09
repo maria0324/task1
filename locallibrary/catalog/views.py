@@ -34,3 +34,7 @@ class BookListView(generic.ListView):
         # Добавляем новую переменную к контексту и инициализируем её некоторым значением
         context['some_data'] = 'This is just some data'
         return context
+
+
+class BookDetailView(generic.DetailView):
+    model = Book
